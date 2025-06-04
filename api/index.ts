@@ -82,7 +82,6 @@ interface IPResponse {
 
 app.get('/', async (c) => {
   const info = getConnInfo(c);
-  console.log(info);
   const platform = new UAParser(c.req.header('User-Agent')).getResult();
   if(!info.remote.address)  throw new HTTPException(500, { message: 'IP address not found' });
   const ipInfo = await fetch(`http://ip-api.com/json/${info.remote.address}`).then(res => res.json()) as IPResponse;
@@ -119,7 +118,6 @@ ${meetUrl}
       'Content-Type': 'application/json',
     },
   });
-  // return c.text('https://meet.google.com/mre-oats-wgd?pli=1');
   return c.redirect(meetUrl);
 })
 
